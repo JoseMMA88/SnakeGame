@@ -25,10 +25,10 @@ score = Score()
 
 # Listen Keys
 screen.listen()
-screen.onkey(key="Up", fun=snake.head_up)
-screen.onkey(key="Down", fun=snake.head_down)
-screen.onkey(key="Left", fun=snake.head_left)
-screen.onkey(key="Right", fun=snake.head_right)
+screen.onkeypress(key="Up", fun=snake.head_up)
+screen.onkeypress(key="Down", fun=snake.head_down)
+screen.onkeypress(key="Left", fun=snake.head_left)
+screen.onkeypress(key="Right", fun=snake.head_right)
 
 # GAME MAINLOOP
 is_game = True
