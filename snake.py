@@ -13,6 +13,16 @@ class Snake:
         for i in range(self.body_count):
             self.add_body(self.position)
 
+    def reset(self):
+        for body in self.snake:
+            body.goto(2000, 2000)
+
+        self.snake.clear()
+        self.body_count = 3
+        self.position = {"x": 0, "y": 0}
+        self.create_snake()
+        self.head = self.snake[0]
+
     def add_body(self, position):
         body = Turtle("square")
         body.penup()

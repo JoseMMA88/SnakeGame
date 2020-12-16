@@ -30,30 +30,38 @@ screen.onkeypress(key="Down", fun=snake.head_down)
 screen.onkeypress(key="Left", fun=snake.head_left)
 screen.onkeypress(key="Right", fun=snake.head_right)
 
-# GAME MAINLOOP
-is_game = True
-while is_game:
-    # Refresh the screen to prevent blinking at moving the snake
-    screen.update()
-    time.sleep(0.1)
-    snake.move()
 
-    # Check collisions with food
-    if snake.head.distance(food) < 15:
-        food.generate_food()
-        score.up_score()
-        snake.grown()
+def game():
+    score.goto(0, 265)
+    score.update_scoreboard()
 
-    # Check collision with wall
-    if snake.head.xcor() > 280 or snake.head.xcor() < -280 or snake.head.ycor() > 280 or snake.head.ycor() < -280:
-        score.game_over()
-        is_game = False
+    # GAME MAINLOOP
+    is_game = True
+    while is_game:
+        # Refresh the screen to prevent blinking at moving the snake
+        screen.update()
+        time.sleep(0.1)
+        snake.move()
 
-    # Check collision with snake own tail
-    for body in snake.snake[1:]:
-        if snake.head.distance(body) < 10:
-            score.game_over()
-            is_game = False
+        # Check collisions with food
+        if snake.head.distance(food) < 15:
+            food.generate_food()
+            score.up_score()
+            snake.grown()
 
+        # Check collision with wall
+        if snake.head.xcor() > 280 or snake.head.xcor() < -280 or snake.head.ycor() > 280 or snake.head.ycor() < -280:
+            score.reset()
+            snake.reset()
+
+        # Check collision with snake own tail
+        for body in snake.snake[1:]:
+            if snake.head.distance(body) < 10:
+                score.reset()
+                snake.reset()
+
+
+score.start()
+screen.onkeypress(key="space", fun=game)
 
 screen.exitonclick()
